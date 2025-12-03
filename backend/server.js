@@ -1,10 +1,10 @@
 import express from 'express';
 import { connection } from "./db.js";
+import bodyParser from 'body-parser';
 
 let app = express();
 
-//import connection from db.js
-
+app.use(bodyParser.json());
 
 app.listen(3000,async()=>{
     try{
