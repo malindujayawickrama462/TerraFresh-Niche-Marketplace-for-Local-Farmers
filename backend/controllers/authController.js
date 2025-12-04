@@ -4,8 +4,15 @@ import jwt from "jsonwebtoken";
 
 //Register User
 export const registerUser = async(req,res)=>{
+    
     try{
         const{name,email,password,role} = req.body;
+        if (!name || !email || !password) {
+            return res.status(400).json({
+                success: false,
+                message: "Please provide name, email, and password"
+            });
+        }
         const existingUser = await User.findOne({email});
         if(existingUser){
             return res.status(400).json({
@@ -34,6 +41,12 @@ export const registerUser = async(req,res)=>{
 export const LoginUser = async(req,res)=>{
     try{
         const{email,password} = req.body;
+        if (!email || !password) {
+            return res.status(400).json({
+                success: false,
+                message: "Please provide email and password"
+            });
+        }
         const user = await User.findOne({email});
 
         if(!user){
@@ -44,7 +57,7 @@ export const LoginUser = async(req,res)=>{
         const isMatch = await bcrypt.compare(password,user.password);
         if(!isMatch){
             return res.status(400).json({
-                message:"Invalid e,ail or password"
+                message:"Invalid email or password"
             });
         }
         const token = jwt.sign(

@@ -1,10 +1,18 @@
 import express from 'express';
 import { connection } from "./db.js";
-import bodyParser from 'body-parser';
+import authRoutes from "./routes/authRoutes.js";
 
-let app = express();
 
-app.use(bodyParser.json());
+
+const app = express();
+
+app.use(express.json());
+
+app.use("/api/auth",authRoutes);
+app.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(500).json({ message: err.message || "Something went wrong!" });
+});
 
 app.listen(3000,async()=>{
     try{
