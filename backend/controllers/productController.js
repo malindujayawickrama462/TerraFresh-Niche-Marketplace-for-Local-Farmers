@@ -23,3 +23,15 @@ export const addProduct = async(req,res)=>{
         });
     }
 };
+export const getyMyProducts = async(req,res)=>{
+    try{
+        const products = await Product.find({
+            farmer:req.user._id
+        });
+        res.status(200).json(products);
+        }catch(err){
+            res.status(500).json({
+                message:err.message
+            });
+        }
+};
