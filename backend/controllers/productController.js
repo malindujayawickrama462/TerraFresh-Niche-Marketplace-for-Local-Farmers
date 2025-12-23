@@ -35,3 +35,23 @@ export const getyMyProducts = async(req,res)=>{
             });
         }
 };
+export const getSingleproduct = async(req,res)=>{
+    try{
+        const product = await Product.findOne9({
+            _id:req.params.id,
+            farmer:req.user._id,
+        });
+        if(!product){
+            return res.status(404).json({
+                message:"product not found or not authorized",
+            });
+        }
+        res.status(201).json(product);
+    }catch(err){
+        res.status(500).json({
+            message:err.message
+        });
+    }
+};
+
+
