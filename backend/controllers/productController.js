@@ -37,7 +37,7 @@ export const getyMyProducts = async(req,res)=>{
 };
 export const getSingleproduct = async(req,res)=>{
     try{
-        const product = await Product.findOne9({
+        const product = await Product.findOne({
             _id:req.params.id,
             farmer:req.user._id,
         });
@@ -53,5 +53,26 @@ export const getSingleproduct = async(req,res)=>{
         });
     }
 };
-
+export const updateProduct = async(req,res)=>{
+    try{
+        const product = await Product.findById(req.params.id);
+        if(!product){
+            return res.status(404).json({
+                message:"product not found"
+            });
+        }
+        if(product.farmer.toString() !== req.user._id.toString()){
+            return res.status(403).json({
+                message:"Not Authorized"
+            });
+        }
+        Object.assign(product,req.body);
+        const updateProduct = await product.save();
+        res.status(200).json(updateProduct);
+    }catch(err){
+        res.status(400).json({
+            message:err.message
+        });
+    }
+};
 
