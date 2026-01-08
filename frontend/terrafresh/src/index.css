@@ -5,7 +5,26 @@
 
 body {
   font-family: 'Poppins', sans-serif;
-  background: url('./assets/sunny-meadow-landscape.jpg') no-repeat center center fixed;
+  background-color: #f3f4f6; /* neutral */
+}
+.bg-app{
+   min-height: 100vh;
+  background: linear-gradient(
+      rgba(10, 40, 20, 0.55),
+      rgba(10, 40, 20, 0.55)
+    ), url("./assets/sunny-meadow-landscape.jpg") no-repeat center center fixed;
   background-size: cover;
-  min-height: 100vh;
+}
+.bg-app::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  backdrop-filter: blur(2px);
+  background: rgba(0, 0, 0, 0.15);
+  z-index: 0;
+}
+
+.bg-app > * {
+  position: relative;
+  z-index: 10;
 }
