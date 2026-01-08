@@ -5,7 +5,7 @@
 
 body {
   font-family: 'Poppins', sans-serif;
-  background: url("./assets/terrafresh.jpg") no-repeat center center fixed;
+  background: url('./assets/sunny-meadow-landscape.jpg') no-repeat center center fixed;
   background-size: cover;
   min-height: 100vh;
 }
